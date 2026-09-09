@@ -10,7 +10,7 @@ import java.util.List;
 public class JobServiceImpl implements JobService{
 
     private List<Job> jobs = new ArrayList<>();
-    Long jobId = 0L;
+    Long jobId = 1L;
 
     @Override
     public List<Job> findAll() {
