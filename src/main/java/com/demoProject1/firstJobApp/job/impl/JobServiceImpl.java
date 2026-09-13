@@ -14,9 +14,9 @@ import java.util.Optional;
 public class JobServiceImpl implements JobService{
 
 //    private List<Job> jobs = new ArrayList<>();
-    Long jobId = 1L;
+//    Long jobId = 1L;
 
-    JobRepository jobRepository;
+    private final JobRepository jobRepository;
 
     public JobServiceImpl(JobRepository jobRepository) {
         this.jobRepository = jobRepository;
@@ -29,7 +29,7 @@ public class JobServiceImpl implements JobService{
 
     @Override
     public void createJob(Job job) {
-        job.setId(jobId++);
+//        job.setId(jobId++);
         jobRepository.save(job);
     }
 
@@ -40,13 +40,12 @@ public class JobServiceImpl implements JobService{
 
     @Override
     public boolean deleteJobById(Long id) {
-        try{
-            jobRepository.deleteById(id);
-            return true;
-        } catch(Exception e){
-            return false;
-        }
-
+        return jobRepository.findById(id)
+                .map(job -> {
+                    jobRepository.delete(job);
+                    return true;
+                })
+                .orElse(false);
     }
 
     @Override
@@ -55,10 +54,11 @@ public class JobServiceImpl implements JobService{
             if (optionalJob.isPresent()){
                 Job job = optionalJob.get();
                 job.setTitle(updatedJob.getTitle());
-                job.setId(updatedJob.getId());
+                job.setDescription(updatedJob.getDescription());
                 job.setMaxSalary(updatedJob.getMaxSalary());
                 job.setMinSalary(updatedJob.getMinSalary());
                 job.setLocation(updatedJob.getLocation());
+                jobRepository.save(job);
                 return true;
             }
         return false;

@@ -32,7 +32,7 @@ GET {base_url}/jobs/1/company
 @RequestMapping("/jobs")
 public class JobController {
 
-    private JobService jobService;
+    private final JobService jobService;
 
     public JobController(JobService jobService) {
         this.jobService = jobService;
@@ -46,7 +46,7 @@ public class JobController {
     @PostMapping
     public ResponseEntity<String> createJob(@RequestBody Job job){
         jobService.createJob(job);
-        return new ResponseEntity<>("Job added successfully.", HttpStatus.OK);
+        return new ResponseEntity<>("Job added successfully.", HttpStatus.CREATED);
     }
 
     @GetMapping("/{id}")
@@ -67,8 +67,7 @@ public class JobController {
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
-//    @PutMapping("/jobs/{id}")
-    @RequestMapping(value = "/jobs/{id}", method = RequestMethod.PUT)
+    @PutMapping("/{id}")
     public ResponseEntity<String> updateJob(@PathVariable Long id,
                                             @RequestBody Job updatedJob){
         boolean updated = jobService.updateJobById(id, updatedJob);
