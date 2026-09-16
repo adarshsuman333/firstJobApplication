@@ -18,8 +18,9 @@ public class CompanyController {
     }
 
     @GetMapping
-    public List<Company> getAllCompanies() {
-        return companyService.getAllCompanies();
+    public ResponseEntity<List<Company>> getAllCompanies() {
+        return new ResponseEntity<>( companyService.getAllCompanies(),
+                HttpStatus.OK);
     }
 
     @PutMapping("/{id}")
@@ -30,6 +31,12 @@ public class CompanyController {
             return new ResponseEntity<>("Company updated successfully", HttpStatus.OK);
         }
         return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+    }
+
+    @PostMapping
+    public ResponseEntity<String> createCompany(@RequestBody Company company) {
+        companyService.createCompany(company);
+        return new ResponseEntity<>("Company created successfully", HttpStatus.OK);
     }
 
 }
