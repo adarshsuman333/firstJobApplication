@@ -1,6 +1,7 @@
 package com.demoProject1.firstJobApp.job;
 
 
+import com.demoProject1.firstJobApp.company.Company;
 import com.demoProject1.firstJobApp.job.impl.JobService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -46,6 +47,7 @@ public class JobController {
     @PostMapping
     public ResponseEntity<String> createJob(@RequestBody Job job){
         jobService.createJob(job);
+        //Company company = job.getCompany();    //Getting company from the job object that we get from RequestBody and the one we're sending from Postman
         return new ResponseEntity<>("Job added successfully.", HttpStatus.CREATED);
     }
 
