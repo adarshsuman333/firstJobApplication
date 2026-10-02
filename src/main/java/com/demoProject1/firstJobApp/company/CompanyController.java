@@ -50,4 +50,15 @@ public class CompanyController {
         }
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Company> getCompanyById(@PathVariable Long id) {
+        Company company = companyService.getCompanyById(id);
+        if(company != null){
+            return new ResponseEntity<>(company, HttpStatus.OK);
+        }
+        else{
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+    }
+
 }
