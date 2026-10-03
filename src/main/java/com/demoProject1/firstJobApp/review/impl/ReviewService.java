@@ -1,4 +1,9 @@
 package com.demoProject1.firstJobApp.review.impl;
 
+import com.demoProject1.firstJobApp.review.Review;
+
+import java.util.List;
+
 public interface ReviewService {
+    List<Review> getAllReviews(Long companyId);
 }
