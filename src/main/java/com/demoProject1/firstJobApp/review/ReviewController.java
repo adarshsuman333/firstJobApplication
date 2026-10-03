@@ -29,7 +29,7 @@ public class ReviewController {
             return new ResponseEntity<>("Review added successfully.", HttpStatus.OK);
         }
         else  {
-            return new ResponseEntity<>("Review could not be saved.", HttpStatus.BAD_REQUEST);
+            return new ResponseEntity<>("Review could not be added.", HttpStatus.NOT_FOUND);
         }
     }
 
@@ -37,6 +37,19 @@ public class ReviewController {
     public ResponseEntity<Review> getReviews(@PathVariable Long companyId,
                                              @PathVariable Long reviewId) {
         return new ResponseEntity<>( reviewService.getReview(companyId, reviewId), HttpStatus.OK);
+    }
+
+    @PutMapping("/{reviewId}")
+    public ResponseEntity<String> updateReview(@PathVariable Long companyId,
+                                               @PathVariable Long reviewId,
+                                               @RequestBody Review review) {
+        boolean isReviewUpdated = reviewService.updateReview(companyId, reviewId, review);
+        if (isReviewUpdated) {
+            return new ResponseEntity<>("Review updated successfully.", HttpStatus.OK);
+        }
+        else {
+            return new ResponseEntity<>("Review could not be updated.", HttpStatus.NOT_FOUND);
+        }
     }
 
 }
