@@ -60,7 +60,7 @@ public class ReviewController {
             return new ResponseEntity<>("Review updated successfully.", HttpStatus.OK);
         }
         else {
-            return new ResponseEntity<>("Review could not be deleted.", HttpStatus.NOT_FOUND);
+            return new ResponseEntity<>("Review could not be deleted .", HttpStatus.NOT_FOUND);
         }
     }
 
